@@ -72,7 +72,7 @@ export function RepoDropdown({
             <ChevronsUpDown className="ml-auto h-4 w-4 opacity-50" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-full">
+        <DropdownMenuContent align="end" className="w-[263px]">
           <DropdownMenuItem asChild>
             <a href={`https://github.com/${owner}/${repo}`} target="_blank" onClick={onClick} >
               <span className="mr-4">See on GitHub</span>
