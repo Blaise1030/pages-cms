@@ -7,7 +7,7 @@ import { getSchemaByName } from "@/lib/schema";
 import { CollectionView } from "@/components/collection/collection-view";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { Sidebar } from "lucide-react";
+import { PanelRight } from "lucide-react";
 
 export default function Page({
   params
@@ -30,11 +30,11 @@ export default function Page({
   const path = searchParams.get("path") || "";
 
   return (
-    <div className="max-w-screen-xl mx-auto flex-1 flex flex-col">
+    <div className="mx-auto flex-1 flex flex-col">
       <header className="flex items-center gap-2 mb-6">
         <SidebarTrigger >
-          <Button size={'icon-sm'} variant={'ghost'}>
-            <Sidebar height={20} width={20} />
+          <Button size={'icon-xs'} variant={'ghost'}>
+            <PanelRight className="size-4" />
           </Button>
         </SidebarTrigger>
         <h1 className="font-semibold text-lg md:text-2xl">{schema.label || schema.name} </h1>
