@@ -3,6 +3,7 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { UserProvider } from "@/contexts/user-context";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { UnpublishedChangesProvider } from "@/contexts/unpublished-changes-context";
 import { User } from "@/types/user";
 
 export function Providers({ children, user }: { children: React.ReactNode, user: User | null }) {
@@ -15,7 +16,9 @@ export function Providers({ children, user }: { children: React.ReactNode, user:
     >
       <UserProvider user={user}>
         <TooltipProvider>
-          {children}
+          <UnpublishedChangesProvider>
+            {children}
+          </UnpublishedChangesProvider>
         </TooltipProvider>
       </UserProvider>
     </ThemeProvider>
