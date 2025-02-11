@@ -7,6 +7,7 @@ import { useConfig } from "@/contexts/config-context";
 import { useUser } from "@/contexts/user-context";
 import { cn } from "@/lib/utils";
 import { FileStack, FileText, Image as ImageIcon, Settings, Users } from "lucide-react";
+import { SidebarMenuItem, SidebarMenuButton, SidebarMenu } from "../ui/sidebar";
 
 const RepoNavItem = ({
   children,
@@ -22,16 +23,17 @@ const RepoNavItem = ({
   onClick?: () => void;
 }) => (
   <Link
-    className={cn(
-      active ? "bg-accent" : "hover:bg-accent",
-      "flex items-center rounded-lg px-3 py-2 focus:bg-accent outline-none"
-    )}
-    href={href}
     onClick={onClick}
+    href={href}
   >
-    {icon}
-    <span className="truncate">{children}</span>
+    <SidebarMenuItem className={cn(active ? "bg-accent" : "hover:bg-accent",)}>
+      <SidebarMenuButton>
+        {icon}
+        <span className="truncate">{children}</span>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
   </Link>
+
 );
 
 const RepoNav = ({
@@ -95,17 +97,20 @@ const RepoNav = ({
 
   return (
     <>
-      {items.map(item => (
-        <RepoNavItem
-          key={item.key}
-          icon={item.icon}
-          href={item.href}
-          active={pathname === item.href || pathname.startsWith(`${item.href}/`)}
-          onClick={onClick}
-        >
-          {item.label}
-        </RepoNavItem>
-      ))}
+      <SidebarMenu>
+        {items.map(item => (
+          <RepoNavItem
+            key={item.key}
+            icon={item.icon}
+            href={item.href}
+            active={pathname === item.href || pathname.startsWith(`${item.href}/`)}
+            onClick={onClick}
+          >
+            {item.label}
+          </RepoNavItem>
+        ))}
+      </SidebarMenu>
+
     </>
   );
 }

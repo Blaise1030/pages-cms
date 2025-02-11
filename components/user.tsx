@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useUser } from "@/contexts/user-context";
-import { handleSignOut }  from "@/lib/actions/auth";
+import { handleSignOut } from "@/lib/actions/auth";
 import { getInitialsFromName } from "@/lib/utils/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,14 +33,14 @@ export function User({
 }) {
   const { user } = useUser();
   const { theme, setTheme } = useTheme();
-  
+
   if (!user) return null;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon-sm" className={cn(className, "rounded-full")}>
-          <Avatar className="h-8 w-8">
+        <Button variant="ghost" size="icon-sm" className={className}>
+          <Avatar className="h-8 w-8" >
             <AvatarImage
               src={
                 user?.githubId
@@ -61,9 +61,9 @@ export function User({
         <DropdownMenuLabel>
           {user?.githubId
             ? <>
-                <div className="text-sm font-medium truncate">{user.githubName ? user.githubName : user.githubUsername}</div>
-                <div className="text-xs font-normal text-muted-foreground truncate">{user.githubEmail}</div>
-              </>
+              <div className="text-sm font-medium truncate">{user.githubName ? user.githubName : user.githubUsername}</div>
+              <div className="text-xs font-normal text-muted-foreground truncate">{user.githubEmail}</div>
+            </>
             : <div className="text-sm font-medium truncate">{user.email}</div>
           }
         </DropdownMenuLabel>

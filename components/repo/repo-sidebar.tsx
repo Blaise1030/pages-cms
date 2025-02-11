@@ -24,12 +24,12 @@ const RepoSidebar = ({
             All projects
           </Link>
           <RepoDropdown onClick={onClick} />
-          <UnpublishedChanges />
         </SidebarHeader>
         <SidebarContent>
           <RepoNav onClick={onClick} />
         </SidebarContent>
         <SidebarFooter>
+          <UnpublishedChanges />
           <div className="flex justify-between">
             <User className="mr-auto" onClick={onClick} />
             <About onClick={onClick} />
