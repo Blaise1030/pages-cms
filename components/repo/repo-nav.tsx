@@ -24,7 +24,7 @@ const RepoNavItem = ({
   <Link
     className={cn(
       active ? "bg-accent" : "hover:bg-accent",
-      "flex items-center rounded-lg px-3 py-2 font-medium focus:bg-accent outline-none"
+      "flex items-center rounded-lg px-3 py-2 focus:bg-accent outline-none"
     )}
     href={href}
     onClick={onClick}
@@ -58,29 +58,29 @@ const RepoNav = ({
 
     const mediaItem = configObject.media?.input && configObject.media?.output
       ? {
-          key: "media",
-          icon: <ImageIcon className="h-5 w-5 mr-2" />,
-          href: `/${config.owner}/${config.repo}/${config.branch}/media`,
-          label: "Media"
-        }
+        key: "media",
+        icon: <ImageIcon className="h-5 w-5 mr-2" />,
+        href: `/${config.owner}/${config.repo}/${config.branch}/media`,
+        label: "Media"
+      }
       : null;
 
     const settingsItem = configObject.settings !== false
       ? {
-          key: "settings",
-          icon: <Settings className="h-5 w-5 mr-2" />,
-          href: `/${config.owner}/${config.repo}/${config.branch}/settings`,
-          label: "Settings"
-        }
+        key: "settings",
+        icon: <Settings className="h-5 w-5 mr-2" />,
+        href: `/${config.owner}/${config.repo}/${config.branch}/settings`,
+        label: "Settings"
+      }
       : null;
 
     const collaboratorsItem = configObject && Object.keys(configObject).length !== 0 && user?.githubId
       ? {
-          key: "collaborators",
-          icon: <Users className="h-5 w-5 mr-2" />,
-          href: `/${config.owner}/${config.repo}/${config.branch}/collaborators`,
-          label: "Collaborators"
-        }
+        key: "collaborators",
+        icon: <Users className="h-5 w-5 mr-2" />,
+        href: `/${config.owner}/${config.repo}/${config.branch}/collaborators`,
+        label: "Collaborators"
+      }
       : null;
 
     return [

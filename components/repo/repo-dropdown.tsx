@@ -32,7 +32,7 @@ export function RepoDropdown({
 }) {
   const router = useRouter();
   const { owner, repo, branches, defaultBranch } = useRepo();
-  const{ config } = useConfig();
+  const { config } = useConfig();
 
   const displayBranches = useMemo(() => {
     let branchesToDisplay: string[] = [];
@@ -72,27 +72,27 @@ export function RepoDropdown({
             <ChevronsUpDown className="ml-auto h-4 w-4 opacity-50" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="w-full">
           <DropdownMenuItem asChild>
             <a href={`https://github.com/${owner}/${repo}`} target="_blank" onClick={onClick} >
               <span className="mr-4">See on GitHub</span>
               <ArrowUpRight className="h-3 w-3 ml-auto min-ml-4 opacity-50" />
             </a>
           </DropdownMenuItem>
-          <DropdownMenuSeparator/>
+          <DropdownMenuSeparator />
           <DropdownMenuLabel className="w-40 text-xs text-muted-foreground font-medium">Branches{branchesCount && ` (${branchesCount})`}</DropdownMenuLabel>
-            {displayBranches.length > 0 && (
-              <>
-                <DropdownMenuRadioGroup value={config?.branch} onValueChange={handleBranchChange}>
-                  {displayBranches.map((branch: string) => (
-                    <DropdownMenuRadioItem key={branch} value={branch} className="max-w-64" onClick={onClick}>
-                      <span className="truncate">{branch}</span>
-                    </DropdownMenuRadioItem>
-                  ))}
-                </DropdownMenuRadioGroup>
-                <DropdownMenuSeparator/>
-              </>
-            )}
+          {displayBranches.length > 0 && (
+            <>
+              <DropdownMenuRadioGroup value={config?.branch} onValueChange={handleBranchChange}>
+                {displayBranches.map((branch: string) => (
+                  <DropdownMenuRadioItem key={branch} value={branch} className="max-w-64" onClick={onClick}>
+                    <span className="truncate">{branch}</span>
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+              <DropdownMenuSeparator />
+            </>
+          )}
           <DialogTrigger asChild>
             <DropdownMenuItem onClick={onClick}>Manage branches</DropdownMenuItem>
           </DialogTrigger>
@@ -101,7 +101,7 @@ export function RepoDropdown({
           <DialogHeader>
             <DialogTitle>Manage branches</DialogTitle>
           </DialogHeader>
-          <RepoBranches/>
+          <RepoBranches />
         </DialogContent>
       </DropdownMenu>
     </Dialog>
