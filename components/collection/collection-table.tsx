@@ -64,8 +64,8 @@ export function CollectionTable<TData extends TableData>({
   });
 
   return (
-    <div className="space-y-2">
-      <Table className="border-separate border-spacing-0 text-base"> 
+    <div className="space-y-2 px-2">
+      <Table className="border-separate border-spacing-0 text-base">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="sticky -top-4 md:-top-6 z-20 bg-background hover:bg-background">
@@ -92,12 +92,12 @@ export function CollectionTable<TData extends TableData>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                       {{
-                        asc: <ArrowUp className="h-4 w-4 opacity-50"/>,
-                        desc: <ArrowDown className="xh-4 w-4 opacity-50"/>,
+                        asc: <ArrowUp className="h-4 w-4 opacity-50" />,
+                        desc: <ArrowDown className="xh-4 w-4 opacity-50" />,
                       }[header.column.getIsSorted() as string] ?? null}
                     </div>
                   </TableHead>
@@ -127,7 +127,7 @@ export function CollectionTable<TData extends TableData>({
             <TableRow className="hover:bg-transparent">
               <TableCell colSpan={columns.length} className="text-center text-muted-foreground text-sm p-6">
                 <div className="inline-flex items-center justify-center">
-                  <Ban className="h-4 w-4 mr-2"/>
+                  <Ban className="h-4 w-4 mr-2" />
                   No entries
                 </div>
               </TableCell>
@@ -135,19 +135,19 @@ export function CollectionTable<TData extends TableData>({
           )}
         </TableBody>
       </Table>
-      { (table.getCanPreviousPage() || table.getCanNextPage()) && 
+      {(table.getCanPreviousPage() || table.getCanNextPage()) &&
         <footer className="flex gap-x-2 items-center">
           <div className="text-muted-foreground text-sm mr-auto">
             {`Page ${table.getState().pagination.pageIndex + 1} of ${table.getPageCount()}`}
           </div>
           <div className="flex">
             <Button size="sm" variant="ghost" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-              <ChevronLeft className="h-4 w-4 mr-1"/>
+              <ChevronLeft className="h-4 w-4 mr-1" />
               Previous
             </Button>
             <Button size="sm" variant="ghost" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
               Next
-              <ChevronRight className="h-4 w-4 ml-1"/>
+              <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
           </div>
         </footer>

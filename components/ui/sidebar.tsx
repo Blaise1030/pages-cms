@@ -266,21 +266,21 @@ const SidebarTrigger = React.forwardRef<
   const { toggleSidebar } = useSidebar()
 
   return (
-    <Button
+    <span
       ref={ref}
       data-sidebar="trigger"
       variant="ghost"
       size="icon"
       className={cn("h-7 w-7", className)}
       onClick={(event) => {
-        onClick?.(event)
+        onClick?.(event as any)
         toggleSidebar()
       }}
       {...props}
     >
       {children ? children : <PanelLeft />}
       <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+    </span>
   )
 })
 SidebarTrigger.displayName = "SidebarTrigger"

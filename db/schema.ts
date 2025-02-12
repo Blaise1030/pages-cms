@@ -71,7 +71,8 @@ const configTable = sqliteTable("config", {
   branch: text("branch").notNull(),
   sha: text("sha").notNull(),
   version: text("version").notNull(),
-  object: text("object").notNull()
+  object: text("object").notNull(),
+  buildhook: text('buildhook').default('').notNull(),
 });
 
 export {

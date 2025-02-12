@@ -1,0 +1,1 @@
+ALTER TABLE `config` ADD `buildhook` text DEFAULT '' NOT NULL;

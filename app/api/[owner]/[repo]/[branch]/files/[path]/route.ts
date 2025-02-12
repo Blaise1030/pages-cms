@@ -197,8 +197,8 @@ const githubSaveFile = async (
         repo,
         path: currentPath,
         message: sha
-          ? `[skip ci] Update ${currentPath} (via Pages CMS)`
-          : `[skip ci] Create ${currentPath} (via Pages CMS)`,
+          ? `Update ${currentPath} (via Pages CMS)`
+          : `Create ${currentPath} (via Pages CMS)`,
         content: contentBase64,
         branch,
         sha: sha || undefined,
@@ -278,7 +278,7 @@ export async function DELETE(
       branch: params.branch,
       path: params.path,
       sha: sha,
-      message: `[skip ci] Delete ${params.path} (via Pages CMS)`,
+      message: ` Delete ${params.path} (via Pages CMS)`,
     });
 
     return Response.json({

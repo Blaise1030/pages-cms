@@ -25,7 +25,7 @@ const RepoSidebar = ({
           </Link>
           <RepoDropdown onClick={onClick} />
         </SidebarHeader>
-        <SidebarContent>
+        <SidebarContent className="px-2">
           <RepoNav onClick={onClick} />
         </SidebarContent>
         <SidebarFooter>

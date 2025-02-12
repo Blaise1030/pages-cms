@@ -32,8 +32,8 @@ export default function Page({
   return (
     <div className="mx-auto flex-1 flex flex-col">
       <header className="flex items-center gap-2 mb-6">
-        <SidebarTrigger >
-          <Button size={'icon-xs'} variant={'ghost'}>
+        <SidebarTrigger>
+          <Button size={'icon-xs'} className="size-8 min-w-8" variant={'ghost'}>
             <PanelRight className="size-4" />
           </Button>
         </SidebarTrigger>

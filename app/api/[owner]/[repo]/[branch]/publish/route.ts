@@ -1,6 +1,7 @@
 import { createOctokitInstance } from "@/lib/utils/octokit";
 import { getAuth } from "@/lib/auth";
 import { getToken } from "@/lib/token";
+import { db } from "@/db";
 
 export async function POST(
   request: Request,
@@ -35,6 +36,32 @@ export async function POST(
       ref: `refs/tags/${tagName}`,
       sha,
     });
+
+    // Fetch build hook URL from database and trigger if configured
+    try {
+      const config = await db.query.configTable.findFirst({
+        where: (config, { eq, and }) => and(
+          eq(config.owner, params.owner),
+          eq(config.repo, params.repo),
+          eq(config.branch, params.branch)
+        )
+      });
+
+      if (config?.buildhook) {
+        await fetch(config.buildhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            repository: `${params.owner}/${params.repo}`,
+            branch: params.branch,
+            tag: tagName
+          })
+        });
+      }
+    } catch (deployError) {
+      console.error('Deploy hook error:', deployError);
+      // Continue execution even if deploy hook fails
+    }
 
     return Response.json({
       status: "success",
