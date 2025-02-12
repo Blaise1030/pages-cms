@@ -65,11 +65,11 @@ export async function POST(
             // Hidden fields are stripped in the client, we add them back
             contentObject = deepMap(contentObject, contentFields, (value, field) => field.hidden ? getDefaultValue(field) : value);
             // TODO: fetch the entry and merge values
-            
+
             const zodSchema = generateZodSchema(contentFields);
             const zodValidation = zodSchema.safeParse(contentObject);
-            
-            if (zodValidation.success === false ) {
+
+            if (zodValidation.success === false) {
               const errorMessages = zodValidation.error.errors.map((error: any) => {
                 let message = error.message;
                 if (error.path.length > 0) message = `${message} at ${error.path.join(".")}`;
@@ -101,7 +101,7 @@ export async function POST(
         if (!config?.object.media) throw new Error(`No media configuration found for ${params.owner}/${params.repo}/${params.branch}.`);
 
         if (!normalizedPath.startsWith(config.object.media.input)) throw new Error(`Invalid path "${params.path}" for media.`);
-        
+
         if (getFileName(normalizedPath) === ".gitkeep") {
           // Folder creation
           contentBase64 = "";
@@ -122,9 +122,9 @@ export async function POST(
       default:
         throw new Error(`Invalid type "${data.type}".`);
     }
-    
+
     const response = await githubSaveFile(token, params.owner, params.repo, params.branch, normalizedPath, contentBase64, data.sha);
-  
+
     const savedPath = response?.data.content?.path;
 
     let newConfig;
@@ -139,10 +139,10 @@ export async function POST(
         version: configVersion ?? "0.0",
         object: configObject
       };
-      
+
       await updateConfig(newConfig);
     }
-    
+
     return Response.json({
       status: "success",
       message: savedPath !== normalizedPath
@@ -197,8 +197,8 @@ const githubSaveFile = async (
         repo,
         path: currentPath,
         message: sha
-          ? `Update ${currentPath} (via Pages CMS)`
-          : `Create ${currentPath} (via Pages CMS)`,
+          ? `[skip ci] Update ${currentPath} (via Pages CMS)`
+          : `[skip ci] Create ${currentPath} (via Pages CMS)`,
         content: contentBase64,
         branch,
         sha: sha || undefined,
@@ -248,16 +248,16 @@ export async function DELETE(
     if (!config) throw new Error(`Configuration not found for ${params.owner}/${params.repo}/${params.branch}.`);
 
     const normalizedPath = normalizePath(params.path);
-    
+
     switch (type) {
       case "content":
         if (!name) throw new Error(`"name" is required for content.`);
 
         const schema = getSchemaByName(config.object, name);
         if (!schema) throw new Error(`Schema not found for ${name}.`);
-        
+
         if (!normalizedPath.startsWith(schema.path)) throw new Error(`Invalid path "${params.path}" for ${type} "${name}".`);
-        
+
         if (getFileExtension(normalizedPath) !== schema.extension) throw new Error(`Invalid extension "${getFileExtension(normalizedPath)}" for ${type} "${name}".`);
         break;
       case "media":
@@ -270,7 +270,7 @@ export async function DELETE(
         ) throw new Error(`Invalid extension "${getFileExtension(normalizedPath)}" for media.`);
         break;
     }
-    
+
     const octokit = createOctokitInstance(token);
     const response = await octokit.rest.repos.deleteFile({
       owner: params.owner,
@@ -278,7 +278,7 @@ export async function DELETE(
       branch: params.branch,
       path: params.path,
       sha: sha,
-      message: `Delete ${params.path} (via Pages CMS)`,
+      message: `[skip ci] Delete ${params.path} (via Pages CMS)`,
     });
 
     return Response.json({
