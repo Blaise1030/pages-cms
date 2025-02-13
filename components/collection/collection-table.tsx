@@ -74,7 +74,7 @@ export function CollectionTable<TData extends TableData>({
                   <TableHead
                     key={header.id}
                     className={cn(
-                      "text-xs px-3 first:pl-0 last:pr-0 border-b hover:bg-muted/50 cursor-pointer select-none last:cursor-default last:hover:bg-background",
+                      "text-xs px-3 py-1 border-b hover:bg-muted/50 cursor-pointer select-none last:cursor-default last:hover:bg-background h-fit",
                       header.column.columnDef.meta?.className
                     )}
                     onClick={header.column.getToggleSortingHandler()}
@@ -114,7 +114,7 @@ export function CollectionTable<TData extends TableData>({
                   <TableCell
                     key={cell.id}
                     className={cn(
-                      "px-3 first:pl-0 last:pr-0 border-b py-3",
+                      "px-3 last:pr-0 border-b py-1 text-sm",
                       cell.column.columnDef.meta?.className
                     )}
                   >

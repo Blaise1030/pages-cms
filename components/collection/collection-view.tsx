@@ -268,16 +268,16 @@ export function CollectionView({
     <table className="w-full">
       <thead>
         <tr className="border-b">
-          <th className="pr-3 align-middle h-12">
+          <th className="px-3 py-1 align-middle h-6">
             <Skeleton className="w-8 h-4 rounded" />
           </th>
-          <th className="px-3 align-middle h-12">
+          <th className="px-3 py-1 align-middle h-6">
             <Skeleton className="w-16 h-4 rounded" />
           </th>
-          <th className="px-3 align-middle h-12">
+          <th className="px-3 py-1 align-middle h-6">
             <Skeleton className="w-12 h-4 rounded" />
           </th>
-          <th className="pl-3 align-middle h-12">
+          <th className="px-3 py-1 align-middle h-6">
             <Skeleton className="w-12 h-4 rounded" />
           </th>
         </tr>
@@ -285,16 +285,16 @@ export function CollectionView({
       <tbody>
         {[...Array(5)].map((_, index) => (
           <tr className="border-b" key={index}>
-            <td className="p-3 pl-0 align-middle">
+            <td className="px-3 py-1 align-middle">
               <Skeleton className="h-8 w-8 rounded-md" />
             </td>
-            <th className="p-3 align-middle w-full min-w-[12rem] max-w-[1px]">
+            <th className="px-3 py-1 align-middle w-full min-w-[12rem] max-w-[1px]">
               <Skeleton className="w-full h-5 rounded" />
             </th>
-            <th className="p-3 align-middle">
+            <th className="px-3 py-1 align-middle">
               <Skeleton className="w-24 h-5 rounded" />
             </th>
-            <th className="p-3 pr-0 align-middle">
+            <th className="px-3 py-1 pr-0 align-middle">
               <div className="flex gap-1">
                 <Button variant="outline" size="sm" className="h-8" disabled>Edit</Button>
                 <Button variant="outline" size="icon-sm" className="h-8" disabled>

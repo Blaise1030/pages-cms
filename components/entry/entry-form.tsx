@@ -21,6 +21,7 @@ import { Field } from "@/types/field";
 import { EntryHistoryBlock, EntryHistoryDropdown } from "./entry-history";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { PanelRight } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -56,6 +57,7 @@ import {
 } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 import { ChevronLeft, GripVertical, Loader, Plus, Trash2 } from "lucide-react";
+import { SidebarTrigger } from "../ui/sidebar";
 
 const SortableItem = ({
   id,
@@ -318,16 +320,20 @@ const EntryForm = ({
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div className="mx-auto flex w-full gap-x-8">
           <div className="flex-1 w-0">
-            <header className="flex items-center mb-6">
-              {navigateBack &&
+            <header className="flex items-center mb-6 gap-2">
+              {navigateBack ?
                 <Link
                   className={cn(buttonVariants({ variant: "outline", size: "icon-xs" }), "mr-4 shrink-0")}
                   href={navigateBack}
                 >
                   <ChevronLeft className="h-4 w-4" />
-                </Link>
+                </Link> :
+                <SidebarTrigger>
+                  <Button type="button" size={'icon-xs'} className="size-8 min-w-8" variant={'ghost'}>
+                    <PanelRight className="size-4" />
+                  </Button>
+                </SidebarTrigger>
               }
-
               <h1 className="font-semibold text-lg md:text-2xl truncate">{title}</h1>
             </header>
             <div onSubmit={form.handleSubmit(handleSubmit)} className="grid items-start gap-6">
