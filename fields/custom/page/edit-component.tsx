@@ -1,7 +1,7 @@
 'use client'
 
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import grapesjs, { Editor } from 'grapesjs';
+import grapesjs, { Editor, Frame } from 'grapesjs';
 import plugin from "grapesjs-blocks-basic";
 import GjsEditor from '@grapesjs/react';
 // @ts-ignore
@@ -24,15 +24,21 @@ const EditComponent = forwardRef((props: any, ref) => {
   }, [open])
 
   const onEditor = (editor: Editor) => {
-    console.log(editor, 'Blaise')
     setEditor(editor)
     if (props.value.length > 0) {
       editor.loadProjectData(JSON.parse(props.value ?? "{}")?.projectData ?? {});
     }
+    editor.Canvas.getModel()['on']('change:frames', (m, frames) => {
+      frames.forEach((frame: Frame) => frame.once('loaded', () => {
+        const cssStyle = document.createElement('style');
+        cssStyle.setAttribute('type', 'text/tailwindcss');
+        cssStyle.innerHTML = '@theme { --color-clifford: red; }'
+        frame.view?.getEl().contentDocument?.head.appendChild(cssStyle)
+      }));
+    });
   };
 
   const onConfirm = (editor: Editor) => {
-    console.log(editor, 'Blaise')
     props.onChange(JSON.stringify({
       projectData: editor.getProjectData(),
       html: editor.getHtml(),
@@ -62,13 +68,20 @@ const EditComponent = forwardRef((props: any, ref) => {
         </div>
         <div className="h-[calc(100dvh-36px)]">
           <GjsEditor
-            options={{ height: '100%', selectorManager: {}, storageManager: false }}
             grapesjsCss="/css/grapesjs.css"
-            plugins={[plugin, tailwind, gtm]}
+            plugins={[plugin, gtm]}
             defaultValue={props.value}
             className="border"
             grapesjs={grapesjs}
             onEditor={onEditor}
+            options={{
+              height: '100%',
+              selectorManager: {},
+              storageManager: false,
+              canvas: {
+                scripts: ['https://unpkg.com/@tailwindcss/browser@4'],
+              }
+            }}
           />
         </div>
       </div>
