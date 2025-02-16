@@ -8,8 +8,13 @@ import GjsEditor from '@grapesjs/react';
 import gtm from "grapesjs-ga"
 import { Button } from "@/components/ui/button";
 import { Save } from "lucide-react";
+import { useParams } from "next/navigation";
 
 const EditComponent = forwardRef((props: any, ref) => {
+  const { branch, name, owner, repo } = useParams()
+  const urlParams = new URLSearchParams({ branch, name, owner, repo } as any);
+
+
   const [open, setIsOpen] = useState(false);
   const [editor, setEditor] = useState<Editor>()
 
@@ -23,9 +28,8 @@ const EditComponent = forwardRef((props: any, ref) => {
 
   const onEditor = (editor: Editor) => {
     setEditor(editor)
-    if (props.value.length > 0) {
-      editor.loadProjectData(JSON.parse(props.value ?? "{}")?.projectData ?? {});
-    }
+    if (props.value.projectData?.length > 0)
+      editor.loadProjectData(JSON.parse(props.value.projectData) ?? {});
     editor.Canvas.getModel()['on']('change:frames', (m, frames) => {
       frames.forEach((frame: Frame) => frame.once('loaded', () => {
         const cssStyle = document.createElement('style');
@@ -37,11 +41,11 @@ const EditComponent = forwardRef((props: any, ref) => {
   };
 
   const onConfirm = (editor: Editor) => {
-    props.onChange(JSON.stringify({
-      projectData: editor.getProjectData(),
+    props.onChange({
+      projectData: JSON.stringify(editor.getProjectData()),
       html: editor.getHtml(),
       css: editor.getCss(),
-    }))
+    })
     setIsOpen(false)
   }
 
@@ -87,7 +91,10 @@ const EditComponent = forwardRef((props: any, ref) => {
             options={{
               height: '100%',
               selectorManager: {},
-              storageManager: false,
+              storageManager: {
+                type: 'local',
+                options: { local: { key: `gjsProject-${urlParams}` } }
+              },
               canvas: {
                 scripts: ['https://unpkg.com/@tailwindcss/browser@4', 'https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.16/src/index.min.js'],
               }
