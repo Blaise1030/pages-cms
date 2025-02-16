@@ -8,6 +8,7 @@ import { useUser } from "@/contexts/user-context";
 import { cn } from "@/lib/utils";
 import { FileStack, FileText, Image as ImageIcon, Settings, Users } from "lucide-react";
 import { SidebarMenuItem, SidebarMenuButton, SidebarMenu } from "../ui/sidebar";
+import React from "react";
 
 const RepoNavItem = ({
   children,
@@ -26,7 +27,7 @@ const RepoNavItem = ({
     onClick={onClick}
     href={href}
   >
-    <SidebarMenuItem className={cn(active ? "bg-accent" : "hover:bg-accent",)}>
+    <SidebarMenuItem className={cn(active ? "bg-accent" : "hover:bg-accent")}>
       <SidebarMenuButton>
         {icon}
         <span className="truncate">{children}</span>
@@ -99,15 +100,17 @@ const RepoNav = ({
     <>
       <SidebarMenu>
         {items.map(item => (
-          <RepoNavItem
-            key={item.key}
-            icon={item.icon}
-            href={item.href}
-            active={pathname === item.href || pathname.startsWith(`${item.href}/`)}
-            onClick={onClick}
-          >
-            {item.label}
-          </RepoNavItem>
+          <React.Fragment key={item.key}>
+            {item.key === 'media' && <div className="border-b w-full" />}
+            <RepoNavItem
+              icon={item.icon}
+              href={item.href}
+              active={pathname === item.href || pathname.startsWith(`${item.href}/`)}
+              onClick={onClick}
+            >
+              {item.label}
+            </RepoNavItem>
+          </React.Fragment>
         ))}
       </SidebarMenu>
 
