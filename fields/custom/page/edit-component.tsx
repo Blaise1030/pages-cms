@@ -1,11 +1,9 @@
 'use client'
 
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import grapesjs, { Editor, Frame } from 'grapesjs';
 import plugin from "grapesjs-blocks-basic";
 import GjsEditor from '@grapesjs/react';
-// @ts-ignore
-import tailwind from "grapesjs-tailwind"
 // @ts-ignore
 import gtm from "grapesjs-ga"
 import { Button } from "@/components/ui/button";
@@ -54,24 +52,36 @@ const EditComponent = forwardRef((props: any, ref) => {
     </Button>
     {
       open && <div className="fixed top-0 left-0 z-50 w-full h-full">
-        <div className="bg-background h-9 px-1 flex items-center">
-          <Button
-            className="gap-2 ms-auto" variant={'default'}
-            onClick={() => onConfirm(editor!)}
-            disabled={!Boolean(editor)}
-            type="button"
-            size={'xs'}
-          >
-            <Save className="size-4" />
-            Save
-          </Button>
+        <div className="bg-background h-9 flex items-center justify-between">
+          <p className="text-xl font-bold px-2">UI Editor</p>
+          <div className="flex items-center">
+            <Button
+              className="gap-2" variant={'secondary'}
+              onClick={() => setIsOpen(false)}
+              disabled={!Boolean(editor)}
+              type="button"
+              size={'xs'}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="gap-2" variant={'default'}
+              onClick={() => onConfirm(editor!)}
+              disabled={!Boolean(editor)}
+              type="button"
+              size={'xs'}
+            >
+              <Save className="size-4" />
+              Save
+            </Button>
+          </div>
         </div>
         <div className="h-[calc(100dvh-36px)]">
           <GjsEditor
             grapesjsCss="/css/grapesjs.css"
             plugins={[plugin, gtm]}
             defaultValue={props.value}
-            className="border"
+            className="border-t"
             grapesjs={grapesjs}
             onEditor={onEditor}
             options={{
@@ -79,7 +89,7 @@ const EditComponent = forwardRef((props: any, ref) => {
               selectorManager: {},
               storageManager: false,
               canvas: {
-                scripts: ['https://unpkg.com/@tailwindcss/browser@4'],
+                scripts: ['https://unpkg.com/@tailwindcss/browser@4', 'https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.16/src/index.min.js'],
               }
             }}
           />
