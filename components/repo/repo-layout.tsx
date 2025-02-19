@@ -13,8 +13,7 @@ export function RepoLayout({
 }) {
   const pathname = usePathname();
 
-  const isPageEditor = /\/[^/]+\/[^/]+\/[^/]+\/page\/[^/]+/.test(pathname);
-
+  const isPageEditor = /\/[^/]+\/[^/]+\/[^/]+\/page/.test(pathname);
 
   return (
     <React.Fragment>

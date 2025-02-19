@@ -49,6 +49,14 @@ const RepoNav = ({
   const items = useMemo(() => {
     if (!config || !config.object) return [];
     const configObject: any = config.object;
+
+    const pagesItem = {
+      key: "pages",
+      icon: <FileText className="h-5 w-5 mr-2" />,
+      href: `/${config.owner}/${config.repo}/${config.branch}/page`,
+      label: "Pages"
+    }
+
     const contentItems = configObject.content?.map((item: any) => ({
       key: item.name,
       icon: item.type === "collection"
@@ -87,6 +95,7 @@ const RepoNav = ({
       : null;
 
     return [
+      pagesItem,
       ...contentItems,
       mediaItem,
       settingsItem,
@@ -101,7 +110,6 @@ const RepoNav = ({
       <SidebarMenu>
         {items.map(item => (
           <React.Fragment key={item.key}>
-            {item.key === 'media' && <div className="border-b w-full" />}
             <RepoNavItem
               icon={item.icon}
               href={item.href}

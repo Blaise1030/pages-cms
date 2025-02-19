@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useConfig } from "@/contexts/config-context";
+import { PageEditor } from "@/components/page-builder";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -12,10 +13,9 @@ export default function Page() {
 
   return (
     <div className="mx-auto flex-1 flex flex-col h-full">
-      <header className="flex items-center mb-6">
-        <h1 className="font-semibold text-lg md:text-2xl">Media</h1>
-      </header>
+
       <div className="flex flex-col relative flex-1">
+        <PageEditor />
       </div>
     </div>
   );
