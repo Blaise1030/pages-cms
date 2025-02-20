@@ -1,4 +1,5 @@
-import {sqliteTable, text, integer} from "drizzle-orm/sqlite-core";
+import {sqliteTable, text, integer, unique} from "drizzle-orm/sqlite-core";
+import {ProjectData} from "grapesjs";
 
 const userTable = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -79,13 +80,21 @@ const configTable = sqliteTable("config", {
   buildhook: text("buildhook").default("").notNull(),
 });
 
-const pagesTable = sqliteTable("pages_table", {
-  id: integer("id").primaryKey({autoIncrement: true}),
-  projectData: text("project_data", {mode: "json"}).notNull(),
-  owner: text("owner").notNull(),
-  repo: text("repo").notNull(),
-  branch: text("branch").notNull(),
-});
+const pagesTable = sqliteTable(
+  "pages_table",
+  {
+    id: integer("id").primaryKey({autoIncrement: true}),
+    projectData: text("project_data", {mode: "json"})
+      .$type<ProjectData>()
+      .notNull(),
+    owner: text("owner").notNull(),
+    repo: text("repo").notNull(),
+    branch: text("branch").notNull(),
+  },
+  (table) => ({
+    ownerRepoUnique: unique().on(table.owner, table.repo, table.branch),
+  })
+);
 
 export {
   userTable,
