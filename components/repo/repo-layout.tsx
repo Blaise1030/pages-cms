@@ -13,23 +13,18 @@ export function RepoLayout({
 }) {
   const pathname = usePathname();
 
-  const isPageEditor = /\/[^/]+\/[^/]+\/[^/]+\/page\/[^/]+/.test(pathname);
+  const isPageEditor = true;
 
 
   return (
     <React.Fragment>
-      {
-        isPageEditor ?
-          <main className="w-full mx-auto">
-            {children}
-          </main> :
-          <SidebarProvider>
-            <RepoSidebar />
-            <main className="w-full p-4 mx-auto">
-              {children}
-            </main>
-          </SidebarProvider>
-      }
+
+      <SidebarProvider>
+        {!isPageEditor && <RepoSidebar />}
+        <main className={`w-full ${isPageEditor ? '' : 'p-4'} mx-auto`}>
+          {children}
+        </main>
+      </SidebarProvider>
     </React.Fragment>
   );
 }
